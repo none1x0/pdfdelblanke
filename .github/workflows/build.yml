@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9' # 这里可以改成你用的版本，如 3.10, 3.11
+        python-version: '3.13' # 这里可以改成你用的版本，如 3.10, 3.11
 
     # 3. 安装依赖库和 PyInstaller
     - name: Install Dependencies
