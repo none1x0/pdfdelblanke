@@ -1,0 +1,45 @@
+name: Build Windows EXE
+
+# 触发条件：当你推送代码或者手动点击按钮时运行
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build-windows:
+    runs-on: windows-latest # 使用最新的 Windows 服务器
+    
+    steps:
+    # 1. 获取你的代码
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 2. 安装 Python 环境
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' # 这里可以改成你用的版本，如 3.10, 3.11
+
+    # 3. 安装依赖库和 PyInstaller
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        # 如果有 requirements.txt 就安装，没有也不会报错
+        if (Test-Path requirements.txt) { pip install -r requirements.txt }
+
+    # 4. 执行打包命令
+    - name: Run PyInstaller
+      run: |
+        # ⚠️注意：把下面的 main.py 改成你实际的主程序文件名！
+        # --onefile 表示打包成一个单独的文件
+        # --noconsole 表示如果是 GUI 程序，不显示黑框
+        pyinstaller --onefile --noconsole main.py
+
+    # 5. 上传打包好的文件
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-exe-file
+        path: dist/
