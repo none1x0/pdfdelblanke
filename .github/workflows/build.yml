@@ -39,7 +39,7 @@ jobs:
 
     # 5. 上传打包好的文件
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: windows-exe-file
         path: dist/
