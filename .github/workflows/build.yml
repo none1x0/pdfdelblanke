@@ -35,7 +35,7 @@ jobs:
         # ⚠️注意：把下面的 main.py 改成你实际的主程序文件名！
         # --onefile 表示打包成一个单独的文件
         # --noconsole 表示如果是 GUI 程序，不显示黑框
-        pyinstaller --onefile --noconsole main.py
+        pyinstaller --onefile --noconsole PDFdelblankprocess.py
 
     # 5. 上传打包好的文件
     - name: Upload Artifact
